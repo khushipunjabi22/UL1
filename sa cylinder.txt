@@ -1,0 +1,8 @@
+echo "Enter radius (in mm)"
+read rad
+r=$(echo "scale=2; $rad / 1000" | bc)
+echo "Enter height (in mm)"
+read height
+h=$(echo "scale=2; $height / 1000" | bc)
+vol=$(echo "scale=2; (3.14 * $h * $r ^ 2) + (2 * 3.14 * $r)" | bc)
+echo "Vol = $vol"

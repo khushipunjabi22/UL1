@@ -1,0 +1,13 @@
+
+for ((i=2; i<=100; i++)); do 
+flag=0
+for ((y=2; y<i; y++)); do 
+if [[ $((i % y)) -eq 0 ]]; then
+flag=1
+break
+fi
+done
+if ((flag == 0)); then
+echo $i
+fi
+done

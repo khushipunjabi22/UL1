@@ -1,0 +1,11 @@
+echo "Enter cp"
+read cp
+echo "Enter sp"
+read sp
+if (($sp > $cp)); then 
+profit=$s((sp - cp))
+echo "profit = $profit"
+else
+loss=$((cp - sp))
+echo "loss = $loss"
+fi

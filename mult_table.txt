@@ -1,0 +1,7 @@
+echo "Enter Roll Number"
+read roll
+echo "Entered Year is $roll"
+for x in 1 2 3 4 5 6 7 8 9 10
+do
+echo "$roll x $x = $((roll * x))"
+Done

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <first_name> <last_name>"
+    exit 1
+fi
+
+fname=$1
+lname=$2
+
+cat > "${fname}.c" <<EOF
+#include <stdio.h>
+int main() {
+    printf("${fname} welcomes you to ${lname} house\n");
+    return 0;
+}
+EOF
+
+gcc "${fname}.c" -o "${fname}"
+./"${fname}"
+rm "${fname}.c" "${fname}"

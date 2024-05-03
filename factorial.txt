@@ -1,0 +1,9 @@
+echo "Enter a number: "
+read y
+fact=1
+for ((i=1; i<=y; i++)) 
+do 
+fact=$((fact * i))
+done
+echo "Fact of $y is $fact"
+

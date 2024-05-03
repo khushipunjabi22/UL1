@@ -1,0 +1,16 @@
+echo "Enter the length of side a:"
+read a
+echo "Enter the length of side b:"
+read b
+echo "Enter the length of side c:"
+read c
+s=$(echo "scale=2; ($a + $b + $c) / 2" | bc)
+area=$(echo "scale=2; sqrt($s * ($s - $a) * ($s - $b) * ($s - $c))" | bc)
+echo "The area of the triangle with sides $a, $b, and $c is: $area"
+
+echo "Enter the base of the triangle:"
+read base
+echo "Enter the height of the triangle:"
+read height
+area=$(echo "scale=2; 0.5 * $base * $height" | bc)
+echo "The area of the triangle with base $base and height $height is: $area"

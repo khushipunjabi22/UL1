@@ -1,0 +1,16 @@
+echo "Enter a number"
+read y
+
+a=0
+b=1
+
+echo "$a"
+echo "$b"
+
+for ((i=3; i<=y; i++))
+do
+next=$((a + b))
+echo "$next"
+a=$b
+b=$next
+done

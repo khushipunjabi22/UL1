@@ -1,0 +1,9 @@
+echo "Enter string one : "
+read a
+echo "Enter string two : "
+read b
+if [ "$a" = "$b" ]; then
+ echo "String are equals"
+else
+ echo"String are not equals"
+fi

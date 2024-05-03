@@ -1,0 +1,31 @@
+sum=0
+i="y"
+echo "Enter a no"
+read n1
+echo "Enter another no"
+read n2
+while [ $i = "y" ]
+do 
+echo "1.Addition"
+echo "2.Subtraction"
+echo "3.Multiplication"
+echo "4.Division"
+echo "Enter your choice"
+read ch
+case $ch in 
+1)sum=`expr $n1 + $n2`
+echo "sum ="$sum;;
+2)sum=`expr $n1 - $n2`
+echo "sub = "$sum;;
+3)sum=`expr $n1 \* $n2`
+echo "mul is "$sum;;
+4)sum=`expr $n1 / $n2`
+echo "div = "$sum;;
+*)echo "Invalid Choice";;
+esac
+echo "Do you want to continue? [y/n]"
+read in
+if [ $in != "y" ]; then 
+exit
+fi
+done
