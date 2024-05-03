@@ -1,0 +1,126 @@
+sed -n (separate outputs) '' filename
+-e multiple 
+print odd records
+sed -n '1~2p' bank.lst
+
+
+print first 3
+sed '3q' bank.lst
+sed -n '1,3p' bank.lst
+
+last 
+sed -n '$p' bank.lst
+ 
+dont print
+sed -n '2,5!p' bank.lst
+
+multiple 
+sed -n -e '1,2p' -e '7,9p' -e '$p' bank.lst
+
+PRINT RECORDS OF KEYWORD 
+sed -n '/current/,/saving/p' bank.lst
+sed -n '/[cC]urrent/p' bank.lst
+
+Writing to other file:
+sed -n '/current/w clist.lst' bank.lst
+sed -n '1,4w clist.lst' bank.lst
+
+Inserting into new file:
+sed '1i 104 Varun 12/08/98 current' bank.lst > new.lst
+sed 'i\
+This is blank line
+' bank.lst > new.lst
+
+append:
+sed 'a\
+' bank.lst>new.lst
+
+Deleting:
+sed '/This is blank line/d' bank.lst
+
+
+Substituting:
+sed '1,3s/\t/ /g' bank.lst
+
+Remembered Patterns in sed
+root@MUM084:~/Desktop# sed -n '/\([Aa]\)\([a-z]\)/p' bank.lst
+101 Aditya 0 14/11/2000 current
+102 Anil 10000 20/05/2011 saving
+103 Naman0 20/08/2009 current
+104 Ram 10000 15/08/2010 saving
+105 Jyotsna 5000 16/06/2012 saving
+107 Vishal 14500 30/11/2011 saving
+108 Chirag 0 15/12/2012 Current
+109 Arya 16000 14/12/2010 Current
+110 Priya 130 16/11/2009 Saving
+root@MUM084:~/Desktop# sed -n '/\([Aa]\)\([a-z]*\)/p' bank.lst
+101 Aditya 0 14/11/2000 current
+102 Anil 10000 20/05/2011 saving
+103 Naman0 20/08/2009 current
+104 Ram 10000 15/08/2010 saving
+105 Jyotsna 5000 16/06/2012 saving
+107 Vishal 14500 30/11/2011 saving
+108 Chirag 0 15/12/2012 Current
+109 Arya 16000 14/12/2010 Current
+110 Priya 130 16/11/2009 Saving
+root@MUM084:~/Desktop# sed -n '/\([Aa]\)\([Dd]*\)/p' bank.lst
+101 Aditya 0 14/11/2000 current
+102 Anil 10000 20/05/2011 saving
+103 Naman0 20/08/2009 current
+104 Ram 10000 15/08/2010 saving
+105 Jyotsna 5000 16/06/2012 saving
+107 Vishal 14500 30/11/2011 saving
+108 Chirag 0 15/12/2012 Current
+109 Arya 16000 14/12/2010 Current
+110 Priya 130 16/11/2009 Saving
+root@MUM084:~/Desktop# sed -n '/\([Aa]\)/p' bank.lst
+101 Aditya 0 14/11/2000 current
+102 Anil 10000 20/05/2011 saving
+103 Naman0 20/08/2009 current
+104 Ram 10000 15/08/2010 saving
+105 Jyotsna 5000 16/06/2012 saving
+107 Vishal 14500 30/11/2011 saving
+108 Chirag 0 15/12/2012 Current
+109 Arya 16000 14/12/2010 Current
+110 Priya 130 16/11/2009 Saving
+root@MUM084:~/Desktop# sed -n '/\([Cc]\)/p' bank.lst
+101 Aditya 0 14/11/2000 current
+103 Naman0 20/08/2009 current
+106 Mukesh 14000 20/12/2009 Current
+108 Chirag 0 15/12/2012 Current
+109 Arya 16000 14/12/2010 Current
+root@MUM084:~/Desktop# sed -n '/\([Pp]\)/p' bank.lst
+110 Priya 130 16/11/2009 Saving
+root@MUM084:~/Desktop# sed -n '/\([A]\)/p' bank.lst
+101 Aditya 0 14/11/2000 current
+102 Anil 10000 20/05/2011 saving
+109 Arya 16000 14/12/2010 Current
+root@MUM084:~/Desktop# sed -n '/\([^Pp]\)/p' bank.lst
+101 Aditya 0 14/11/2000 current
+102 Anil 10000 20/05/2011 saving
+103 Naman0 20/08/2009 current
+104 Ram 10000 15/08/2010 saving
+105 Jyotsna 5000 16/06/2012 saving
+106 Mukesh 14000 20/12/2009 Current
+107 Vishal 14500 30/11/2011 saving
+108 Chirag 0 15/12/2012 Current
+109 Arya 16000 14/12/2010 Current
+110 Priya 130 16/11/2009 Saving
+root@MUM084:~/Desktop# sed -n '/\([Aa]\)\([d]\)/p' bank.lst
+101 Aditya 0 14/11/2000 current
+root@MUM084:~/Desktop# sed -n '/\([Aa]\)\([n]\)/p' bank.lst
+102 Anil 10000 20/05/2011 saving
+103 Naman0 20/08/2009 current
+root@MUM084:~/Desktop# sed -n '/\([i]\)\([a-z]*\)/p' bank.lst
+101 Aditya 0 14/11/2000 current
+102 Anil 10000 20/05/2011 saving
+104 Ram 10000 15/08/2010 saving
+105 Jyotsna 5000 16/06/2012 saving
+107 Vishal 14500 30/11/2011 saving
+108 Chirag 0 15/12/2012 Current
+110 Priya 130 16/11/2009 Saving
+
+
+
+
+

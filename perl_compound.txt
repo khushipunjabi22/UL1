@@ -1,0 +1,13 @@
+#!/bin/perl
+print("Enter principal amount");
+$pr = <>;
+chomp $pr;
+print("Enter rate");
+$r = <>;
+chomp $r;
+print("Enter years");
+$y = <>;
+chomp $y;
+$c=$pr*(1+$r/100)**$y-$pr;
+$s=($pr*$r*$y)/100;
+print("SI is $s and CI is $c");

@@ -1,0 +1,12 @@
+print("Enter Principal:");
+$p = <>;
+chomp $p;
+print("Enter rate:");
+$r = <>;
+chomp $r;
+print("Enter years:");
+$y = <>;
+chomp $y;
+$CI = $p*(1+$r/100)**$y-$p;
+print("CI is $CI);
+

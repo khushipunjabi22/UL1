@@ -1,0 +1,14 @@
+print("Enter Cost Price:");
+$p = <>;
+chomp $p;
+print("Enter Selling Price");
+$s = <>;
+chomp $s;
+if ($p>$s){
+$loss = $p-$s;
+print("Loss=$loss");
+}
+else{
+$profit = $s-$p;
+print("Profit=$profit");
+}

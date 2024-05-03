@@ -1,0 +1,7 @@
+print("Enter x:");
+$x = <>;
+chomp $x;
+
+$y = $x**3+ $x**2;
+print("$y");
+

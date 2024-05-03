@@ -1,0 +1,43 @@
+grep -c -v -n(display line no.s)
+-l lists the file names containing pattern
+-L files not containing
+-i case sensitive 
+-e represents or 
+-h without file name 
+-H with file name
+
+PRINT FILE NAMES 
+grep -l current *.lst
+
+2lines before and after 
+grep -2 -i current bank.lst
+
+OR eg 
+grep -e current -e Current bank.lst
+
+PRINT RECORDS OF SPECIFIC WORDS
+grep chirag bank.lst
+
+
+COUNT LINES 
+grep -c Chirag bank.lst
+
+Display all records that have or do not have letter 'b'
+grep "b*" bank.lst
+
+DISPLAY RECORDS STARTING WITH 1
+grep "^1" && "g$" bank.lst
+DONT START WITH 2
+grep ^[^2] bank.lst
+To print lines which do not start with letters in range H to K
+grep ^[^H-K] bank.lst
+
+SPECIFIC PATTERNS 
+grep .....ya bank.lst
+
+Display all records containing pattern that starts with A, ends with a and inbetween contains any
+number of characters.
+grep A.*a bank.lst
+
+grep -n 'Arya\|Ram' bank.lst
+grep -n 'current' bank.lst

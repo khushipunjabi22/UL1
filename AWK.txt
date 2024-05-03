@@ -1,0 +1,250 @@
+awk ' ' filename
+print always in {}
+format specifiers %d int %s string %-15s 15 character string from left side 
+
+FORMAT SPECIFIER 
+awk '{printf"%3d \t %7d \t %-15s \n",$1,$3,$2}'bank.lst
+
+PRINT EVEN COLUMNS 
+awk '{for(i=2;i<=NF;i=+2) printf"%s\t",$i;printf"\n"} bank.lst
+
+PRINT EVEN ROWS
+awk 'NR % 2 == 0' filename
+print record n
+awk 'NR == n' filename
+
+
+SALARY LESS THAN 5000, PRINT SPECIFIC FIELDS
+awk '$3<5000 {print $1 \t $2}' filename
+
+PRINT RECORDS HAVING CERTAIN WORD 
+awk '$5~/current|saving/' bank.lst
+awk '$5~/[Cc]urrent/' bank.lst
+
+
+PRINT RECORDS STARTING AND ENDING WITH
+awk '$5!~/g$/' bank.lst
+
+PRINT RECORDS IN RANGE 
+awk 'NR==2, NR==8 {print $1, $2, $3}' bank.lst
+awk 'NR==2 || NR==8 {print NR, $1, $2, $3}' bank.lst
+awk 'NR>=3 && NR<=7 {print $1, $2, $3}' bank.lst
+display name with record no. Having record no less than 2 and more than 8. 
+awk 'NR<2 || NR>8 {print NR, $2}' bank.lst
+
+
+PRINT EVEN COLUMNS 
+awk '{for(i=2;i<=NF;i=+2) printf"%s\t",$i;printf"\n"} bank.lst
+
+Print number of fields in each line /record of the file text.lst
+awk '{print NF}' text.lst
+Print last field of each line in bank.lst
+awk '{print $NF}' bank.lst
+
+Print all records having A at the beginning of second field and g at the end of fifth field
+awk '$2 ~ "^A" && $5 ~ "g$"' bank.lst
+Print records whose date of opening starts with 14 or the year ends with 12.
+awk '$4 ~ "^14" || $4~"12$"' bank.lst
+Print records whose date of opening is 20 and the year is 09 and whose name starts with N
+awk '$4 ~ /^20.*09/ && $2 ~/^N/' bank.lst
+
+Print all lines whose length is more than 32
+awk 'length($0) > 32' bank.lst
+
+Print customer name, balance, date and 5% interest on balance
+awk '$5 == "saving" { printf "%20s %d %20s %f \n",$2,
+$3, $4, $3*0.05}' bank.lst
+
+BEGIN AND END
+awk 'BEGIN{
+printf "Records in the bank are :\n"
+}
+{print $1, $2, $3}
+> END{print "\n we displayed all records"}' bank.lst
+
+
+
+Storing commands in file and using them:
+Store the command to calculate total balance of all accounts and printing it at the end.
+Use this command on bank.lst file
+root@MUM084:~/Desktop# cat >totalbal.awk
+{total+=$3}
+END{print"total balance is = ", total}
+root@MUM084:~/Desktop# awk -f totalbal.awk bank.lst
+total balance is = 120407
+What will happen if END section is not used in the above command?
+i.e. totalbal.awk file is modified as:
+{total+=$3}
+{print"total balance is = ", total} and then it is executed on bank.lst. We get
+following output:
+root@MUM084:~/Desktop# awk -f totalbal.awk bank.lst
+total balance is = 0
+total balance is = 10000
+total balance is = 10000
+total balance is = 20000
+total balance is = 25000
+total balance is = 39000
+total balance is = 53500
+total balance is = 53500
+total balance is = 69500
+total balance is = 69630
+total balance is = 72630
+total balance is = 76630
+total balance is = 78630
+total balance is = 108630
+total balance is = 112630
+total balance is = 120407
+Create file countrec.awk which contains actions to count no. Of records, to calculate total balance
+and average balance. Apply commands in this file to bank.lst
+root@MUM084:~/Desktop# cat > countrec.awk
+BEGIN{printf "Records are: \n"
+}
+{
+print $0
+c++
+sum+=$3
+}
+END{printf "\n Number of records are: %d", c
+printf "\n Total balance is %d", sum
+printf "\n Average balance is " %f", sum/c
+}
+root@MUM084:~/Desktop# awk -f countrec.awk bank.lst
+Records are:
+101 ADITYA 0 14/11/2000 CURRENT
+102 Anil 1000020/05/2011 saving
+103 Naman 0 20/08/2009 current
+104 Ram 1000015/08/2010 saving
+105 Jyotsna 5000 16/06/2012 saving
+106 Mukesh 1400020/12/2009 Current
+107 Vishal 1450030/11/2011 saving
+108 Chirag 0 15/12/2012 Current
+109 Arya 1600014/12/2010 Current
+110 Priya 130 16/11/2009 Saving
+201 Bina 3000 11/03/2010 saving
+202 Diya 4000 13/04/2018 Saving
+203 Gargi 2000 21/01/2015 current
+204 Hina 3000014/02/2014 saving
+205 Kalpana 4000 8/9/2007 Current
+301 Nikhil 7777 8/9/1999 saving
+ Number of records are: 16
+ Total balance is 120407
+ Average balance is 7525.437500root@MUM084:~/Desktop#
+Create file addnonzero.awk which contains actions to add only nonzero balance,
+display total balance and average balance. Apply commands in this file to bank.lst
+root@MUM084:~/Desktop# cat > addnonzero.awk
+$3==0{next}
+{total+=$3
+count++
+}
+END{avg=total/count
+printf"\n Total is : %d", total
+printf"\n average is: %d", avg
+printf"\n no. of customers is %d", count}
+root@MUM084:~/Desktop# awk -f addnonzero.awk bank.lst
+ Total is : 120407
+ average is: 9262
+ no. of customers is 13
+Update nonzero.awk file such that it adds balance of those customers whose account type is not
+'saving', displays their average and no of such records
+Hence the nonzero.awk now becomes:
+$5 ~/^s/{next}
+{total+=$3
+count++
+}
+END{avg=total/count
+printf"\n Total is : %d", total
+printf"\n average is: %d", avg
+printf"\n no. of customers is %d", count}
+root@MUM084:~/Desktop# awk -f addnonzero.awk bank.lst
+ Total is : 40130
+ average is: 4458
+ no. of customers is 9
+Using if.. else
+command to calculate 5% interest if balance more than 10000 else interest is 6%
+root@MUM084:~/Desktop# cat >interest
+{if ($3 > 10000) print "interest = " $3*0.05;
+else print "interest = " $3*0.06}
+root@MUM084:~/Desktop# awk -f interest bank.lst
+interest = 0
+interest = 600
+interest = 0
+interest = 600
+interest = 300
+interest = 700
+interest = 725
+interest = 0
+interest = 800
+interest = 7.8
+interest = 180
+interest = 240
+interest = 120
+interest = 1500
+interest = 240
+interest = 466.62
+Write command to calculate 5% interest if account type is 'current' else interest is 6%
+interest file is updated as below:
+{if ($5~/current/) print "interest = " $3*0.05;
+else print "interest = " $3*0.06}
+root@MUM084:~/Desktop# awk -f interest bank.lst
+interest = 0
+interest = 600
+interest = 0
+interest = 600
+interest = 300
+interest = 840
+interest = 870
+interest = 0
+interest = 960
+interest = 7.8
+interest = 180
+interest = 240
+interest = 100
+interest = 1800
+interest = 240
+interest = 466.62
+Write command to calculate 5% interest if account type is 'current' or 'Current' else
+interest is 6%
+interest file is updated as below:
+{if ($5~/[Cc]urrent/) print "interest = " $3*0.05;
+else print "interest = " $3*0.06}
+root@MUM084:~/Desktop# awk -f interest bank.lst
+interest = 0
+interest = 600
+interest = 0
+interest = 600
+interest = 300
+interest = 700
+interest = 870
+interest = 0
+interest = 800
+interest = 7.8
+interest = 180
+interest = 240
+interest = 100
+interest = 1800
+interest = 200
+interest = 466.62
+root@MUM084:~/Desktop#
+Write command to calculate 5% interest if account type is not 'current' or 'Current'
+else interest is 6%
+interest file is updated as below:
+{if ($5!~/[Cc]urrent/) print "interest = " $3*0.05;
+else print "interest = " $3*0.06}
+root@MUM084:~/Desktop# awk -f interest bank.lst
+interest = 0
+interest = 500
+interest = 0
+interest = 500
+interest = 250
+interest = 840
+interest = 725
+interest = 0
+interest = 960
+interest = 6.5
+interest = 150
+interest = 200
+interest = 120
+interest = 1500
+interest = 240
+interest = 388.85
+root@MUM084:~/Desktop# 

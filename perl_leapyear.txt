@@ -1,0 +1,16 @@
+echo "Current date is $(date)"
+year=$(date  +%y)
+echo "current year is $year"
+if [[ $((year % 4)) -eq 0 ]]; then
+	echo "leap year"
+else 
+	echo "not a leap year"
+fi
+echo "Enter a year:"
+read year2
+echo "year entered is $year2"
+if [[ $((year2 % 4)) -eq 0 ]]; then
+	echo "leap year"
+else 
+	echo "not leap year"
+fi

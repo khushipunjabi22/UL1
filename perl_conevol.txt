@@ -1,0 +1,11 @@
+print("Enter height:");
+$h = <>;
+chomp $h;
+print("Enter radius:");
+$r = <>;
+chomp $r;
+$hi=$h/1000;
+$ri=$r/1000;
+
+$vol = 1/3*3.14*$ri*$ri*$hi;
+print("Vol = $vol m^3");
